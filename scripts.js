@@ -82,20 +82,22 @@ function setTheme() {
   }
 }
 
-document.querySelector("[data-list-button]").innerText = `Show more (${
-  books.length - BOOKS_PER_PAGE
-})`;
-document.querySelector("[data-list-button]").disabled =
-  matches.length - page * BOOKS_PER_PAGE > 0;
+// Function to update the "Show more" button
+function showMoreButton() {
+  const listButton = document.querySelector("[data-list-button]");
+  const remaining = matches.length - page * BOOKS_PER_PAGE;
 
-document.querySelector("[data-list-button]").innerHTML = `
-    <span>Show more</span>
-    <span class="list__remaining"> (${
-      matches.length - page * BOOKS_PER_PAGE > 0
-        ? matches.length - page * BOOKS_PER_PAGE
-        : 0
-    })</span>
-`;
+  listButton.innerText = "Show more";
+  listButton.disabled = remaining <= 0;
+
+  const remainingSpan = document.createElement("span");
+  remainingSpan.className = "list__remaining";
+  remainingSpan.textContent = ` (${remaining > 0 ? remaining : 0})`;
+
+  listButton.innerHTML = "";
+  listButton.appendChild(document.createTextNode("Show more"));
+  listButton.appendChild(remainingSpan);
+}
 
 document.querySelector("[data-search-cancel]").addEventListener("click", () => {
   document.querySelector("[data-search-overlay]").open = false;
