@@ -4,7 +4,7 @@ let page = 1;
 let matches = books;
 
 const starting = document.createDocumentFragment();
-
+// Render books
 for (const { author, id, image, title } of matches.slice(0, BOOKS_PER_PAGE)) {
   const element = document.createElement("button");
   element.classList = "preview";
@@ -23,6 +23,7 @@ for (const { author, id, image, title } of matches.slice(0, BOOKS_PER_PAGE)) {
 
 document.querySelector("[data-list-items]").appendChild(starting);
 
+// Render genres
 const genreHtml = document.createDocumentFragment();
 const firstGenreElement = document.createElement("option");
 firstGenreElement.value = "any";
@@ -37,7 +38,7 @@ for (const [id, name] of Object.entries(genres)) {
 }
 
 document.querySelector("[data-search-genres]").appendChild(genreHtml);
-
+// Render authors
 const authorsHtml = document.createDocumentFragment();
 const firstAuthorElement = document.createElement("option");
 firstAuthorElement.value = "any";
@@ -52,7 +53,7 @@ for (const [id, name] of Object.entries(authors)) {
 }
 
 document.querySelector("[data-search-authors]").appendChild(authorsHtml);
-
+// Set theme
 if (
   window.matchMedia &&
   window.matchMedia("(prefers-color-scheme: dark)").matches
@@ -65,7 +66,7 @@ if (
   document.documentElement.style.setProperty("--color-dark", "10, 10, 20");
   document.documentElement.style.setProperty("--color-light", "255, 255, 255");
 }
-
+// Update books when "Show more" button is clicked
 document.querySelector("[data-list-button]").innerText = `Show more (${
   books.length - BOOKS_PER_PAGE
 })`;
@@ -80,32 +81,34 @@ document.querySelector("[data-list-button]").innerHTML = `
         : 0
     })</span>
 `;
+// Setup event listeners
 
+// Canceling the search modal
 document.querySelector("[data-search-cancel]").addEventListener("click", () => {
   document.querySelector("[data-search-overlay]").open = false;
 });
-
+// Canceling the theme modal
 document
   .querySelector("[data-settings-cancel]")
   .addEventListener("click", () => {
     document.querySelector("[data-settings-overlay]").open = false;
   });
-
+// Opening the search modal
 document.querySelector("[data-header-search]").addEventListener("click", () => {
   document.querySelector("[data-search-overlay]").open = true;
   document.querySelector("[data-search-title]").focus();
 });
-
+// Opening the theme modal
 document
   .querySelector("[data-header-settings]")
   .addEventListener("click", () => {
     document.querySelector("[data-settings-overlay]").open = true;
   });
-
+// Search modal drop down list of book title / author / genre
 document.querySelector("[data-list-close]").addEventListener("click", () => {
   document.querySelector("[data-list-active]").open = false;
 });
-
+// Changing theme
 document
   .querySelector("[data-settings-form]")
   .addEventListener("submit", (event) => {
@@ -129,7 +132,7 @@ document
 
     document.querySelector("[data-settings-overlay]").open = false;
   });
-
+// Searching books
 document
   .querySelector("[data-search-form]")
   .addEventListener("submit", (event) => {
@@ -196,7 +199,7 @@ document
 
       newItems.appendChild(element);
     }
-
+    // Show more button
     document.querySelector("[data-list-items]").appendChild(newItems);
     document.querySelector("[data-list-button]").disabled =
       matches.length - page * BOOKS_PER_PAGE < 1;
@@ -243,7 +246,7 @@ document.querySelector("[data-list-button]").addEventListener("click", () => {
   document.querySelector("[data-list-items]").appendChild(fragment);
   page += 1;
 });
-
+// Book preview
 document
   .querySelector("[data-list-items]")
   .addEventListener("click", (event) => {
