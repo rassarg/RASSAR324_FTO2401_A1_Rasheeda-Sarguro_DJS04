@@ -105,12 +105,14 @@ function setupEventListeners() {
   document
     .querySelector("[data-search-cancel]")
     .addEventListener("click", () => {
+      console.log("Search cancel button clicked");
       document.querySelector("[data-search-overlay]").open = false;
     });
   // Opening the search modal
   document
     .querySelector("[data-header-search]")
     .addEventListener("click", () => {
+      console.log("Header search button clicked");
       document.querySelector("[data-search-overlay]").open = true;
       document.querySelector("[data-search-title]").focus();
     });
@@ -195,12 +197,14 @@ function setupEventListeners() {
   document
     .querySelector("[data-settings-cancel]")
     .addEventListener("click", () => {
+      console.log("Theme settings cancel button clicked");
       document.querySelector("[data-settings-overlay]").open = false;
     });
   // Opening the theme modal
   document
     .querySelector("[data-header-settings]")
     .addEventListener("click", () => {
+      console.log("Theme settings button clicked");
       document.querySelector("[data-settings-overlay]").open = true;
     });
   // Changing theme
