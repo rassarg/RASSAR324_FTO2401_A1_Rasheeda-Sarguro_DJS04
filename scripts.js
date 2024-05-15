@@ -1,4 +1,5 @@
 import { books, authors, genres, BOOKS_PER_PAGE } from "./data.js";
+import { bookPreviewEventListeners } from "./components/bookPreview.js";
 // Initialize page and matches
 let page = 1;
 let matches = books;
@@ -89,6 +90,7 @@ function setupEventListeners() {
     .addEventListener("click", () => {
       document.querySelector("[data-search-overlay]").open = false;
     });
+
   // Opening the search modal
   document
     .querySelector("[data-header-search]")
@@ -96,6 +98,7 @@ function setupEventListeners() {
       document.querySelector("[data-search-overlay]").open = true;
       document.querySelector("[data-search-title]").focus();
     });
+
   // Search modal drop down list of book title / author / genre
   document.querySelector("[data-list-close]").addEventListener("click", () => {
     document.querySelector("[data-list-active]").open = false;
@@ -262,4 +265,5 @@ document.addEventListener("DOMContentLoaded", function () {
   setTheme();
   showMoreButton();
   setupEventListeners();
+  bookPreviewEventListeners();
 });
