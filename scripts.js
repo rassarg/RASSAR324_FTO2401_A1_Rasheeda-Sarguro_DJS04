@@ -1,26 +1,11 @@
 import { books, authors, genres, BOOKS_PER_PAGE } from "./data.js";
-import { bookPreviewEventListeners } from "./components/bookPreview.js";
+import { BookPreview } from "./components/bookPreview.js";
+
 // Initialize page and matches
 let page = 1;
 let matches = books;
-// Function to render books
-function renderBooks() {
-  const starting = document.createDocumentFragment();
-  for (const { author, id, image, title } of matches.slice(0, BOOKS_PER_PAGE)) {
-    const element = document.createElement("button");
-    element.classList = "preview";
-    element.setAttribute("data-preview", id);
-    element.innerHTML = `
-      <img class="preview__image" src="${image}" />
-      <div class="preview__info">
-          <h3 class="preview__title">${title}</h3>
-          <div class="preview__author">${authors[author]}</div>
-      </div>
-    `;
-    starting.appendChild(element);
-  }
-  document.querySelector("[data-list-items]").appendChild(starting);
-}
+// Display list of rendered books
+BookPreview.renderBooks(matches, BOOKS_PER_PAGE);
 // Function to render genres
 function renderGenres() {
   const genreHtml = document.createDocumentFragment();
@@ -259,11 +244,10 @@ function setupEventListeners() {
 // Call functions to initialize the application
 document.addEventListener("DOMContentLoaded", function () {
   console.log("scrips.js and the DOM are loaded");
-  renderBooks();
+
   renderGenres();
   renderAuthors();
   setTheme();
   showMoreButton();
   setupEventListeners();
-  bookPreviewEventListeners();
 });
