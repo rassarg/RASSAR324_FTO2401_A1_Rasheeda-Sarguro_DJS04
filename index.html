@@ -113,8 +113,9 @@
       <!-- Show more Button -->
       <button class="list__button" data-list-button></button>
     </main>
-    <!-- Book preview modal -->
+    <!-- Overlay on modals -->
     <dialog class="overlay" data-list-active>
+      <!-- Preview overlay -->
       <div class="overlay__preview">
         <img class="overlay__blur" data-list-blur src="" /><img
           class="overlay__image"
@@ -122,6 +123,7 @@
           src=""
         />
       </div>
+      <!-- Theme modal overlay -->
       <div class="overlay__content">
         <h3 class="overlay__title" data-list-title></h3>
         <div class="overlay__data" data-list-subtitle></div>
@@ -130,14 +132,14 @@
           data-list-description
         ></p>
       </div>
-      <!-- Search modal drop down list of book title / author / genre -->
+      <!-- Preview overlay Close button -->
       <div class="overlay__row">
         <button class="overlay__button overlay__button_primary" data-list-close>
           Close
         </button>
       </div>
     </dialog>
-    <!-- Search Modal -->
+    <!-- Search Modal Overlay -->
     <dialog class="overlay" data-search-overlay>
       <div class="overlay__content">
         <form class="overlay__form" data-search-form id="search">
@@ -182,6 +184,7 @@
         </div>
       </div>
     </dialog>
+    <!-- Web Component -->
     <theme-modal></theme-modal>
     <!-- Theme modal -->
     <dialog class="overlay" data-settings-overlay>
@@ -213,7 +216,6 @@
         </div>
       </div>
     </dialog>
-
     <script type="module" src="./scripts.js" defer></script>
     <script type="module" src="./data.js" defer></script>
     <script type="module" src="components/bookPreview.js" defer></script>
