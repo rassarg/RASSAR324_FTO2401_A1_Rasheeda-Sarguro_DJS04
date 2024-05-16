@@ -1,5 +1,6 @@
 import { books, authors, genres, BOOKS_PER_PAGE } from "./data.js";
 import { BookPreview } from "./components/bookPreview.js";
+import { ThemeModal } from "./components/themeModal.js";
 
 // Initialize page and matches
 let page = 1;
@@ -64,22 +65,23 @@ function renderAuthors() {
   }
   selectors.dataSearchAuthors.appendChild(authorsHtml);
 }
+new ThemeModal();
 // Function to set theme
-function setTheme() {
-  const prefersDarkMode =
-    window.matchMedia &&
-    window.matchMedia("(prefers-color-scheme: dark)").matches;
-  const theme = prefersDarkMode ? "night" : "day";
-  selectors.dataSettingsTheme.value = theme;
-  document.documentElement.style.setProperty(
-    "--color-dark",
-    prefersDarkMode ? "255, 255, 255" : "10, 10, 20"
-  );
-  document.documentElement.style.setProperty(
-    "--color-light",
-    prefersDarkMode ? "10, 10, 20" : "255, 255, 255"
-  );
-}
+// function setTheme() {
+//   const prefersDarkMode =
+//     window.matchMedia &&
+//     window.matchMedia("(prefers-color-scheme: dark)").matches;
+//   const theme = prefersDarkMode ? "night" : "day";
+//   selectors.dataSettingsTheme.value = theme;
+//   document.documentElement.style.setProperty(
+//     "--color-dark",
+//     prefersDarkMode ? "255, 255, 255" : "10, 10, 20"
+//   );
+//   document.documentElement.style.setProperty(
+//     "--color-light",
+//     prefersDarkMode ? "10, 10, 20" : "255, 255, 255"
+//   );
+// }
 // Function to update books when "Show more" button is clicked
 function showMoreButton() {
   const remaining = matches.length - page * BOOKS_PER_PAGE;
@@ -213,7 +215,8 @@ document.addEventListener("DOMContentLoaded", function () {
   console.log("scrips.js and the DOM are loaded");
   renderGenres();
   renderAuthors();
-  setTheme();
+
+  // setTheme();
   showMoreButton();
   setupEventListeners();
 });
