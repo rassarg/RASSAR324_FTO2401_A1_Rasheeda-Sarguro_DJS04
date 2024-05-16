@@ -30,15 +30,12 @@ export class BookPreview extends HTMLElement {
             padding: 1rem;
           }
         }
-        
         .preview_hidden {
           display: none;
         }
-        
         .preview:hover {
           background: rgba(var(--color-blue), 0.05);
         }
-        
         .preview__image {
           width: 48px;
           height: 70px;
@@ -48,11 +45,9 @@ export class BookPreview extends HTMLElement {
           box-shadow: 0px 2px 1px -1px rgba(0, 0, 0, 0.2),
             0px 1px 1px 0px rgba(0, 0, 0, 0.1), 0px 1px 3px 0px rgba(0, 0, 0, 0.1);
         }
-        
         .preview__info {
           padding: 1rem;
         }
-        
         .preview__title {
           margin: 0 0 0.5rem;
           font-weight: bold;
@@ -62,7 +57,6 @@ export class BookPreview extends HTMLElement {
           overflow: hidden;
           color: rgba(var(--color-dark), 0.8)
         }
-        
         .preview__author {
           color: rgba(var(--color-dark), 0.4);
         }

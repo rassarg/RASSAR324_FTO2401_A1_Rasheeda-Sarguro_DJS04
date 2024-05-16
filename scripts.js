@@ -125,24 +125,7 @@ function setupEventListeners() {
           .classList.remove("list__message_show");
       }
       document.querySelector("[data-list-items]").innerHTML = "";
-      const newItems = document.createDocumentFragment();
-      for (const { author, id, image, title } of result.slice(
-        0,
-        BOOKS_PER_PAGE
-      )) {
-        const element = document.createElement("button");
-        element.classList = "preview";
-        element.setAttribute("data-preview", id);
-        element.innerHTML = `
-        <img class="preview__image" src="${image}" />
-        <div class="preview__info">
-            <h3 class="preview__title">${title}</h3>
-            <div class="preview__author">${authors[author]}</div>
-        </div>
-      `;
-        newItems.appendChild(element);
-      }
-      document.querySelector("[data-list-items]").appendChild(newItems);
+      BookPreview.renderBooks(matches, BOOKS_PER_PAGE);
       document.querySelector("[data-list-button]").disabled =
         matches.length - page * BOOKS_PER_PAGE < 1;
       showMoreButton();
@@ -191,26 +174,10 @@ function setupEventListeners() {
     });
   // Show more button
   document.querySelector("[data-list-button]").addEventListener("click", () => {
-    const fragment = document.createDocumentFragment();
-    for (const { author, id, image, title } of matches.slice(
-      page * BOOKS_PER_PAGE,
-      (page + 1) * BOOKS_PER_PAGE
-    )) {
-      const element = document.createElement("button");
-      element.classList = "preview";
-      element.setAttribute("data-preview", id);
-      element.innerHTML = `
-        <img class="preview__image" src="${image}" />
-        <div class="preview__info">
-            <h3 class="preview__title">${title}</h3>
-            <div class="preview__author">${authors[author]}</div>
-        </div>
-      `;
-      fragment.appendChild(element);
-    }
-    document.querySelector("[data-list-items]").appendChild(fragment);
     page += 1;
+    BookPreview.renderBooks(matches, BOOKS_PER_PAGE);
   });
+
   // Book preview
   document
     .querySelector("[data-list-items]")
@@ -244,7 +211,6 @@ function setupEventListeners() {
 // Call functions to initialize the application
 document.addEventListener("DOMContentLoaded", function () {
   console.log("scrips.js and the DOM are loaded");
-
   renderGenres();
   renderAuthors();
   setTheme();
