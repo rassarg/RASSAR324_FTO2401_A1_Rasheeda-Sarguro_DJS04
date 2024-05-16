@@ -6,7 +6,7 @@ import { ThemeModal } from "./components/themeModal.js";
 let page = 1;
 let matches = books;
 
-// ******** QUERY SELECTORS ******* //
+// ******************** QUERY SELECTORS ******************* //
 
 export const selectors = {
   // Book List
@@ -33,9 +33,11 @@ export const selectors = {
   dataSettingsForm: document.querySelector("[data-settings-form]"),
 };
 
+// ******************* FUNCTIONS ******************* //
+
 // Display list of rendered books
 BookPreview.renderBooks(matches, BOOKS_PER_PAGE);
-// Function to render genres
+// Genres
 function renderGenres() {
   const genreHtml = document.createDocumentFragment();
   const firstGenreElement = document.createElement("option");
@@ -50,7 +52,7 @@ function renderGenres() {
   }
   selectors.dataSearchGenres.appendChild(genreHtml);
 }
-// Function to render authors
+// Authors
 function renderAuthors() {
   const authorsHtml = document.createDocumentFragment();
   const firstAuthorElement = document.createElement("option");
@@ -65,24 +67,10 @@ function renderAuthors() {
   }
   selectors.dataSearchAuthors.appendChild(authorsHtml);
 }
+// Set theme
 new ThemeModal();
-// Function to set theme
-// function setTheme() {
-//   const prefersDarkMode =
-//     window.matchMedia &&
-//     window.matchMedia("(prefers-color-scheme: dark)").matches;
-//   const theme = prefersDarkMode ? "night" : "day";
-//   selectors.dataSettingsTheme.value = theme;
-//   document.documentElement.style.setProperty(
-//     "--color-dark",
-//     prefersDarkMode ? "255, 255, 255" : "10, 10, 20"
-//   );
-//   document.documentElement.style.setProperty(
-//     "--color-light",
-//     prefersDarkMode ? "10, 10, 20" : "255, 255, 255"
-//   );
-// }
-// Function to update books when "Show more" button is clicked
+
+// Update books list when "Show more" button is clicked
 function showMoreButton() {
   const remaining = matches.length - page * BOOKS_PER_PAGE;
   selectors.listButton.innerText = "Show more";
@@ -94,14 +82,15 @@ function showMoreButton() {
   selectors.listButton.appendChild(document.createTextNode("Show more"));
   selectors.listButton.appendChild(remainingSpan);
 }
-// Function to setup event listeners
+// ******************* EVENT LISTENERS ******************* //
+
 function setupEventListeners() {
-  // Canceling the search modal
+  // Canceling search modal
   selectors.dataSearchCancel.addEventListener("click", () => {
     selectors.dataSearchOverlay.open = false;
   });
 
-  // Opening the search modal
+  // Opening search modal
   selectors.dataHeaderSearch.addEventListener("click", () => {
     selectors.dataSearchOverlay.open = true;
     selectors.dataSearchTitle.focus();
@@ -111,6 +100,7 @@ function setupEventListeners() {
   selectors.dataListClose.addEventListener("click", () => {
     selectors.dataListActive.open = false;
   });
+
   // Searching books
   selectors.dataSearchForm.addEventListener("submit", (event) => {
     event.preventDefault();
@@ -148,15 +138,17 @@ function setupEventListeners() {
     window.scrollTo({ top: 0, behavior: "smooth" });
     selectors.dataSearchOverlay.open = false;
   });
-  // Canceling the theme modal
+
+  // Canceling theme modal
   selectors.dataSettingsCancel.addEventListener("click", () => {
     selectors.dataSettingsOverlay.open = false;
   });
-  // Opening the theme modal
+  // Opening theme modal
   selectors.dataHeaderSettings.addEventListener("click", () => {
     selectors.dataSettingsOverlay.open = true;
   });
-  // Changing theme
+
+  // Changing the theme
   selectors.dataSettingsForm.addEventListener("submit", (event) => {
     event.preventDefault();
     const formData = new FormData(event.target);
@@ -176,13 +168,14 @@ function setupEventListeners() {
     }
     selectors.dataSettingsOverlay.open = false;
   });
-  // Show more button
+
+  // 'Show more' button
   selectors.listButton.addEventListener("click", () => {
     page += 1;
     BookPreview.renderBooks(matches, BOOKS_PER_PAGE);
   });
 
-  // Book preview
+  // Book previews
   selectors.dataListItems.addEventListener("click", (event) => {
     const pathArray = Array.from(event.path || event.composedPath());
     let active = null;
@@ -210,13 +203,13 @@ function setupEventListeners() {
     }
   });
 }
-// Call functions to initialize the application
+
+// ******************* INITIALIZE APPLICATION ******************* //
+
 document.addEventListener("DOMContentLoaded", function () {
   console.log("scrips.js and the DOM are loaded");
   renderGenres();
   renderAuthors();
-
-  // setTheme();
   showMoreButton();
   setupEventListeners();
 });
