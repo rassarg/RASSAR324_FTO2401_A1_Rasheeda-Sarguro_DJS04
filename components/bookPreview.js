@@ -1,4 +1,5 @@
 import { authors } from "../data.js";
+import { selectors } from "../scripts.js";
 
 export class BookPreview extends HTMLElement {
   constructor() {
@@ -88,7 +89,7 @@ export class BookPreview extends HTMLElement {
       `;
       starting.appendChild(element);
     }
-    document.querySelector("[data-list-items]").appendChild(starting);
+    selectors.dataListItems.appendChild(starting);
   }
 }
 
